@@ -12,24 +12,31 @@ public class CodingExercise {
 
 	public static void main(String[] args) {
 
+		InputProcessor processor;
+		ProcessorFactory factory = new ProcessorFactory();
+
 		try (Scanner scanner = new Scanner(System.in)) {
 			while (true) {
 				System.out.println("Please input command:\n");
 				String line = scanner.nextLine().toLowerCase();
 				System.out.println(line);
 				String[] tokens = new CommandProcessor("[ ]+").processCommand(line);
+				processor = factory.createProcessor(tokens[0]);
+
+				System.out.println(processor.processInput(tokens));
+
 				if (line.equals(EXIT_COMMAND)) {
 					System.out.println("bye");
 					scanner.close();
 					System.exit(0);
-				} else if (line.startsWith(GREATEST_COMMON_FACTOR_COMMAND)) {
-					GreatestCommonFactorProcessor gcfp = new GreatestCommonFactorProcessor();
-					System.out.println(gcfp.processInput(tokens));
-
-
-				} else if (line.startsWith(UNIQUE_WORDS_COUNT_COMMAND)) {
-
-				} else if (line.startsWith(LINE_COUNT_COMMAND)) {
+//				} else if (line.startsWith(GREATEST_COMMON_FACTOR_COMMAND)) {
+//					GreatestCommonFactorProcessor gcfp = new GreatestCommonFactorProcessor();
+//					System.out.println(gcfp.processInput(tokens));
+//
+//
+//				} else if (line.startsWith(UNIQUE_WORDS_COUNT_COMMAND)) {
+//
+//				} else if (line.startsWith(LINE_COUNT_COMMAND)) {
 
 				} else {
 					System.out.println("Unknown input");
